@@ -205,7 +205,7 @@ with <code>hx --grammar build</code> (requires a C++ compiler).</p>
 Follow the <a href="https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers">instructions on the wiki page</a> to add your language servers of choice.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="usage"><a class="header" href="#usage">Usage</a></h1>
 <p>(Currently not fully documented, see the <a href="./keymap.html">keymappings</a> list for more.)</p>
-<p>See <a href="https://github.com/helix-editor/helix/blob/master/runtime/tutor.txt">tutor.txt</a> (accessible via <code>hx --tutor</code> or <code>:tutor</code>) for a vimtutor-like introduction.</p>
+<p>See <a href="https://github.com/helix-editor/helix/blob/master/runtime/tutor">tutor</a> (accessible via <code>hx --tutor</code> or <code>:tutor</code>) for a vimtutor-like introduction.</p>
 <h2 id="registers"><a class="header" href="#registers">Registers</a></h2>
 <p>Vim-like registers can be used to yank and store text to be pasted later. Usage is similar, with <code>&quot;</code> being used to select a register:</p>
 <ul>
@@ -299,7 +299,6 @@ will move the selection over to the &quot;func&quot; <code>identifier</code>.</p
 <pre><code>[func](arg1, arg2, arg3)
 </code></pre>
 <h2 id="textobjects"><a class="header" href="#textobjects">Textobjects</a></h2>
-<p>Currently supported: <code>word</code>, <code>surround</code>, <code>function</code>, <code>class</code>, <code>parameter</code>.</p>
 <p><img src="https://user-images.githubusercontent.com/23398472/124231131-81a4bb00-db2d-11eb-9d10-8e577ca7b177.gif" alt="textobject-demo" />
 <img src="https://user-images.githubusercontent.com/23398472/132537398-2a2e0a54-582b-44ab-a77f-eb818942203d.gif" alt="textobject-treesitter-demo" /></p>
 <ul>
@@ -309,6 +308,7 @@ will move the selection over to the &quot;func&quot; <code>identifier</code>.</p
 <div class="table-wrapper"><table><thead><tr><th>Key after <code>mi</code> or <code>ma</code></th><th>Textobject selected</th></tr></thead><tbody>
 <tr><td><code>w</code></td><td>Word</td></tr>
 <tr><td><code>W</code></td><td>WORD</td></tr>
+<tr><td><code>p</code></td><td>Paragraph</td></tr>
 <tr><td><code>(</code>, <code>[</code>, <code>'</code>, etc</td><td>Specified surround pairs</td></tr>
 <tr><td><code>m</code></td><td>Closest surround pair</td></tr>
 <tr><td><code>f</code></td><td>Function</td></tr>
@@ -664,10 +664,25 @@ experience.</p>
 example config that gives the ability to use arrow keys while still in insert
 mode:</p>
 <pre><code class="language-toml">[keys.insert]
-up = &quot;move_line_up&quot;
-down = &quot;move_line_down&quot;
-left = &quot;move_char_left&quot;
-right = &quot;move_char_right&quot;
+&quot;up&quot; = &quot;move_line_up&quot;
+&quot;down&quot; = &quot;move_line_down&quot;
+&quot;left&quot; = &quot;move_char_left&quot;
+&quot;right&quot; = &quot;move_char_right&quot;
+&quot;C-b&quot; = &quot;move_char_left&quot;
+&quot;C-f&quot; = &quot;move_char_right&quot;
+&quot;A-b&quot; = &quot;move_prev_word_end&quot;
+&quot;C-left&quot; = &quot;move_prev_word_end&quot;
+&quot;A-f&quot; = &quot;move_next_word_start&quot;
+&quot;C-right&quot; = &quot;move_next_word_start&quot;
+&quot;A-&lt;&quot; = &quot;goto_file_start&quot;
+&quot;A-&gt;&quot; = &quot;goto_file_end&quot;
+&quot;pageup&quot; = &quot;page_up&quot;
+&quot;pagedown&quot; = &quot;page_down&quot;
+&quot;home&quot; = &quot;goto_line_start&quot;
+&quot;C-a&quot; = &quot;goto_line_start&quot;
+&quot;end&quot; = &quot;goto_line_end_newline&quot;
+&quot;C-e&quot; = &quot;goto_line_end_newline&quot;
+&quot;A-left&quot; = &quot;goto_line_start&quot;
 </code></pre>
 <h2 id="select--extend-mode"><a class="header" href="#select--extend-mode">Select / extend mode</a></h2>
 <p>This mode echoes Normal mode, but changes any movements to extend
@@ -800,6 +815,7 @@ appropriate Language Server.</p>
 <p>Also see the <a href="./languages.html">Language Configuration</a> docs and the <a href="./guides/adding_languages.html">Adding
 Languages</a> guide for more language configuration information.</p>
 <div class="table-wrapper"><table><thead><tr><th>Language</th><th>Syntax Highlighting</th><th>Treesitter Textobjects</th><th>Auto Indent</th><th>Default LSP</th></tr></thead><tbody>
+<tr><td>astro</td><td>✓</td><td></td><td></td><td></td></tr>
 <tr><td>awk</td><td>✓</td><td>✓</td><td></td><td><code>awk-language-server</code></td></tr>
 <tr><td>bash</td><td>✓</td><td></td><td></td><td><code>bash-language-server</code></td></tr>
 <tr><td>beancount</td><td>✓</td><td></td><td></td><td></td></tr>
